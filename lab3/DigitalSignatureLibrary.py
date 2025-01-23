@@ -7,6 +7,42 @@ class DigitalSignatureLibrary:
         self.RSAKeys = []
         self.GOSTKeys = []
 
+    def read_file(self, file_path):
+        """Чтение файла в виде массива байтов."""
+        try:
+            with open(file_path, "rb") as file:
+                return file.read()
+        except Exception as e:
+            print(f"Ошибка при чтении файла: {e}")
+            return None
+
+    def write_file(self, file_path, data):
+        """Запись данных в файл."""
+        try:
+            with open(file_path, "wb") as file:
+                file.write(data)
+            print(f"Файл {file_path} успешно записан.")
+        except Exception as e:
+            print(f"Ошибка при записи файла: {e}")
+
+    def write_signature(self, file_path, signature):
+        """Запись подписи в файл."""
+        try:
+            with open(file_path, "w") as file:
+                file.write(str(signature))
+            print(f"Подпись сохранена в файл {file_path}.")
+        except Exception as e:
+            print(f"Ошибка при записи подписи: {e}")
+
+    def read_signature(self, file_path):
+        """Чтение подписи из файла."""
+        try:
+            with open(file_path, "r") as file:
+                return eval(file.read())
+        except Exception as e:
+            print(f"Ошибка при чтении подписи: {e}")
+            return None
+
     def ElGamalSign(self, data):
         while True:
             q = CryptoLibrary.generate_prime(0, 1000000000)
